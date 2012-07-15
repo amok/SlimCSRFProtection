@@ -1,6 +1,6 @@
 <?php
 /**
- * SlimCSFRProtection
+ * SlimCSRFProtection
  *
  * This middleware provides protection from CSRF attacks
  * 
@@ -8,7 +8,7 @@
  *
  * // Adding middleware
  * $app = new Slim();
- * $app->add( new SlimCSFRProtection() );
+ * $app->add( new SlimCSRFProtection() );
  *
  * // Setting token in view
  *
@@ -22,16 +22,26 @@
  *      var token = $("meta[name='csrftoken']").attr("content");
  *      xhr.setRequestHeader("X-CSRF-Token", token);
  * });
- * 
+ *
+ * see also README.md
+ *  
  * @author komaval, https://github.com/komaval
- * @version 0.1
+ * @version 0.2
  */
 
-class SlimCSFRProtection extends Slim_Middleware {
+class SlimCSRFProtection extends Slim_Middleware {
+    
+    /**
+     * @var {String} secret key, wich will be used for generating csrf token
+     */
+    protected $secret;
+
     /**
      * @constructor
      */
-    public function __construct() {}
+    public function __construct( String $secret = "SlimCSRFProtection" ) {
+        $this->secret = $secret;
+    }
 
     /**
      * Call middleware
@@ -45,19 +55,19 @@ class SlimCSFRProtection extends Slim_Middleware {
     }
 
     /**
-     * Checking token, which was sent with headers
-     */
+    * Checking token, which was sent with headers
+    */
     public function check() {
         // Create token
         $env = $this->app->environment();
-        $token = md5('SlimCSFRProtection' . '|' . $env['REMOTE_ADDR'] . '|' . $env['USER_AGENT']);
+        $token = md5( $this->secret . '|' . $env['REMOTE_ADDR'] . '|' . $env['USER_AGENT'] );
 
-         $usertoken = $env['X_CSRF_TOKEN'];
-         if( in_array($this->app->request()->getMethod(), array('POST', 'PUT', 'DELETE')) ) {
-             if ( $token !== $usertoken ) {
-                $this->app->halt(400, 'Missing protection token');
-             }   
-         }
+        $usertoken = $env['X_CSRF_TOKEN'];
+        if( in_array($this->app->request()->getMethod(), array('POST', 'PUT', 'DELETE')) ) {
+            if ( $token !== $usertoken ) {
+               $this->app->halt(400, 'Missing protection token');
+            }   
+        }
 
         // Assign to view
         $this->app->view()->setData(array(
