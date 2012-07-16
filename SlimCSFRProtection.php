@@ -63,6 +63,7 @@ class SlimCSRFProtection extends Slim_Middleware {
         $token = md5( $this->secret . '|' . $env['REMOTE_ADDR'] . '|' . $env['USER_AGENT'] );
 
         $usertoken = $env['X_CSRF_TOKEN'];
+
         if( in_array($this->app->request()->getMethod(), array('POST', 'PUT', 'DELETE')) ) {
             if ( $token !== $usertoken ) {
                $this->app->halt(400, 'Missing protection token');
