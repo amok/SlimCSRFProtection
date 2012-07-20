@@ -11,15 +11,14 @@ attacks for [Slim framework](http://www.slimframework.com).
 
 ### Usage
 
-At first, init middleware:
+Init middleware:
 
     $app = new Slim();
     $app->add( new SlimCSRFProtection("my secret string") );
 
-As seen, it is possible to pass into the constructor string, which will be used for generating csfr token. 
-This is recommended way to increase protection. 
+// Constructor takes string, which will be used for generating csfr token. 
 
-Then, set up token in view, by adding next meta tag:
+Then, set up token in view:
 
     <meta name="csrftoken" content="<?= $csrf_token ?>"/>
 
@@ -27,7 +26,7 @@ OR
 
     <?php header('X-CSRF-Token', $csrf_token); ?>
 
-You can also integrate this middleware with AJAX. F.e, jQuery.ajax library:
+Working with jQuery.ajax:
 
     $(document).ajaxSend(function(e, xhr, options) {
         var token = $("meta[name='csrftoken']").attr("content");
