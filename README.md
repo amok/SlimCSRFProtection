@@ -14,9 +14,8 @@ attacks for [Slim framework](http://www.slimframework.com).
 Init middleware:
 
     $app = new Slim();
+    // Constructor takes string, which will be used for generating csfr token. 
     $app->add( new SlimCSRFProtection("my secret string") );
-
-// Constructor takes string, which will be used for generating csfr token. 
 
 Then, set up token in view:
 
