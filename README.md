@@ -12,7 +12,7 @@ attacks for [Slim framework](http://www.slimframework.com).
 
 ### Usage
 
-[https://github.com/komaval/SlimCSRFProtection/wiki](https://github.com/komaval/SlimCSRFProtection/wiki)
+See [https://github.com/komaval/SlimCSRFProtection/wiki](https://github.com/komaval/SlimCSRFProtection/wiki)
 
 ### See also
 
