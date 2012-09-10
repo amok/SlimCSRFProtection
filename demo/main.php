@@ -1,7 +1,10 @@
 <?
 
-require 'Slim/Slim.php';
-\Slim\Slim::registerAutoloader();
+require_once 'Slim/Slim/Slim.php';
+
+spl_autoload_register(function($className) {
+    \Slim\Slim::autoload( 'Slim\\' . $className );
+});
 
 // require_once 'Slim/Slim/Slim.php';
 require_once '../Slim2CSRFProtection.php';
