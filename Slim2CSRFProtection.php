@@ -1,39 +1,39 @@
 <?php
 
 /**
- * CSRF protection for Slim framework (version 1.6.5 <)
+ * CSRF protection for Slim framework (version 2)
  * https://github.com/komaval/SlimCSRFProtection/wiki
  * @author komaval
  */
 
-class SlimCSRFProtectionNoSession extends Slim_Middleware {
-    
-    protected $_secret, $_token;
+class Slim2CSRFProtection extends \Slim\Middleware {
 
-    public function get_token() {
-        $env = $this->app->environment();
-        return md5(sha1(md5("CSRF" . str_repeat($this->_secret . $env['REMOTE_ADDR'] . $env['USER_AGENT'], 10))));
+    public static function get_token() {
+        if( isset($_SESSION['csrf_token']) ) return $_SESSION['csrf_token'];
+        $token = md5( microtime() . rand() . uniqid() );
+        return $token;
     }
 
-    public function __construct($secret, $onerror = false) {
-        $this->_secret = $secret;
-
-        if($onerror && is_callable($this->_onerror)) {
+    public function __construct($onerror = false) {
+        if($onerror && is_callable($onerror)) {
             $this->_onerror = $onerror;
         }
     }
 
-    public function call() {
-        $this->_token = $this->get_token();
+    public function call() {        
         $this->app->hook('slim.before', array($this, 'check'));
         $this->next->call();
     }
 
-    public function is_token_valid($token) {
-        return $token == $this->_token;
+    public function is_token_valid($usertoken) {
+        return $usertoken === $_SESSION['csrf_token'];
     }
 
     public function check() {
+        if(!isset($_SESSION)) {
+            $this->app->halt(400, "SlimCSRFProtection: session not started.");
+        }
+
         $env = $this->app->environment();
 
         $usertoken = $env['X_CSRF_TOKEN'] ?: $this->app->request()->post( 'csrf_token' );
@@ -48,7 +48,10 @@ class SlimCSRFProtectionNoSession extends Slim_Middleware {
             }   
         }
 
-        $token = $this->_token;
+        $token = static::get_token();
+
+        $_SESSION['csrf_token'] = $token;
+
         $this->app->view()->setData(array(
             'csrf_token' => $token,
             'csrf_protection_input'  => '<input type="hidden" name="csrf_token" value="' . $token . '"/>',

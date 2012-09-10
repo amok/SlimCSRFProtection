@@ -1,12 +1,12 @@
 <?php
 
 /**
- * CSRF protection for Slim framework (version 1.6.5 <)
+ * CSRF protection for Slim framework (version 2)
  * https://github.com/komaval/SlimCSRFProtection/wiki
  * @author komaval
  */
 
-class SlimCSRFProtectionNoSession extends Slim_Middleware {
+class Slim2CSRFProtectionNoSession extends \Slim\Middleware {
     
     protected $_secret, $_token;
 
