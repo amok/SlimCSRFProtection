@@ -1,5 +1,11 @@
-SlimCSRFProtection
-==================
+Deprecated
+==========
+This middleware is deprecated now. 
+Use [Slim-Extras: CsrfGuard middleware](https://github.com/codeguy/Slim-Extras/tree/master/Middleware)
+instead
+
+
+## Description
 
 Simple protection middleware against [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) 
 attacks for [Slim framework](http://www.slimframework.com). 
