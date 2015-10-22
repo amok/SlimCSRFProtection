@@ -1,7 +1,7 @@
 # Slim CSRF protection
 
 Simple protection middleware against [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) 
-attacks for [Slim framework](http://www.slimframework.com). 
+attacks for [Slim PHP framework](http://www.slimframework.com). 
 
 * Really protect your app from csr forgery ;)
 * Helpers for forms and jQuery
