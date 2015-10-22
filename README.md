@@ -37,7 +37,7 @@ With function:
     $app->add( new SlimCSRFProtectionNoSession("It is my secret string!", 'show_message') );
 
 ### Important
-SlimCSRFProtectionNoSession generates token, related of your secret string, $_SERVER['REMOTE_ADDR'] and $_SERVER['USER_AGENT'], therefore it is not full protection - users from same subnet takes same token. If it is possible, use SlimCSRFProtection instead of SlimCSRFProtectionNoSession
+SlimCSRFProtectionNoSession generates token, related to your secret string, $_SERVER['REMOTE_ADDR'] and $_SERVER['USER_AGENT'], therefore it is not full protection - users from same subnet takes same token. If it is possible, use SlimCSRFProtection instead of SlimCSRFProtectionNoSession
 
 ## Usage in View
 By default SlimCSRFProtection append to view three variables:
