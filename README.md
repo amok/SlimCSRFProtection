@@ -18,7 +18,7 @@ Version with Sessions (must be enabled)
     $app = new Slim(); // init app
     $app->add( new SlimCSRFProtection() );
 
-Also, you can pass custom callback function:
+Also, you can pass custom function as callback:
 
     function show_message() { echo "verification not passed" }
 
@@ -26,7 +26,7 @@ Also, you can pass custom callback function:
 
 ### SlimCSRFProtectionNoSession
 
-Note, if you use **SlimCSRFProtectionNoSession** instead of SlimCSRFProtection, you need to pass  in constructor as first argument some secret string, which will be used for generating csrf token - it's required. And, optionally, constructor takes function, which will be executed, if submitted token is not valid.
+Note, if you use **SlimCSRFProtectionNoSession** instead of SlimCSRFProtection, you need to pass in constructor as first argument some secret string, which will be used for generating csrf token - it's required. And, optionally, constructor takes function which will be executed if submitted token is not valid.
 
     $app->add( new SlimCSRFProtectionNoSession("It is my secret string!") );
 
@@ -40,7 +40,7 @@ With function:
 SlimCSRFProtectionNoSession generates token, related to your secret string, $_SERVER['REMOTE_ADDR'] and $_SERVER['USER_AGENT'], therefore it is not full protection - users from same subnet takes same token. If it is possible, use SlimCSRFProtection instead of SlimCSRFProtectionNoSession
 
 ## Usage in View
-By default SlimCSRFProtection append to view three variables:
+By default the middleware appends to view three variables:
 
     $csrf_token - random secret token
 
@@ -68,7 +68,7 @@ You can use those in HTML like so
 # API
 **static::create_token()** - returns csrf token
 
-**$this->is_token_valid($token)** - returns true, if token valid
+**$this->is_token_valid($token)** - returns true, if token is valid
 
 ### See also
 
