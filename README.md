@@ -1,3 +1,5 @@
+# Slim CSRF protection
+
 Simple protection middleware against [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) 
 attacks for [Slim framework](http://www.slimframework.com). 
 
