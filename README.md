@@ -1,3 +1,13 @@
+# PREAMBLE
+
+**Middleware only for Slim v1 and v2**
+
+It times of v1 and v2 there was official middleware
+
+But it didn't really protect your app - algo was wrong
+
+That's why this MW was created
+
 # Slim CSRF protection
 
 Simple protection middleware against [CSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) 
