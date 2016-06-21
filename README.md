@@ -2,7 +2,7 @@
 
 **Middleware only for Slim v1 and v2**
 
-It times of v1 and v2 there was official middleware
+In times of v1 and v2 there was official middleware
 
 But it didn't really protect your app - algo was wrong
 
